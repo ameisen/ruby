@@ -198,7 +198,7 @@ outfile = ARGV[2]
 if MJITHeader.cl_exe?(cc)
   cflags = '-DMJIT_HEADER -Zs'
 else
-  cflags = '-S -DMJIT_HEADER -fsyntax-only -Werror=implicit-function-declaration -Werror=implicit-int -Wfatal-errors'
+  cflags = '-S -DMJIT_HEADER -fsyntax-only'
 end
 
 if !MJITHeader.cl_exe?(cc) && !MJITHeader.supported_header?(code)

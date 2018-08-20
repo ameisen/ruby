@@ -459,23 +459,12 @@ AS_IF([test "$GCC:${warnflags+set}:no" = yes::no], [
 		 -Wno-self-assign \
 		 -Wno-cast-function-type \
 		 -Wunused-variable \
-		 -Werror=implicit-int \
-		 -Werror=pointer-arith \
-		 -Werror=write-strings \
-		 -Werror=declaration-after-statement \
-		 -Werror=shorten-64-to-32 \
-		 -Werror=implicit-function-declaration \
-		 -Werror=division-by-zero \
-		 -Werror=deprecated-declarations \
-		 -Werror=misleading-indentation \
 		 -Wno-overlength-strings \
 		 -Wno-packed-bitfield-compat \
 		 -Wsuggest-attribute=noreturn \
 		 -Wsuggest-attribute=format \
 		 -Wmissing-noreturn \
 		 -Wimplicit-fallthrough=0 \
-		 -Werror=duplicated-cond \
-		 -Werror=restrict \
 		 $extra_warning \
 		 ; do
 	AS_IF([test "$particular_werror_flags" != yes], [
@@ -606,12 +595,7 @@ AS_IF([test "$GCC" = yes], [
 
     # suppress annoying -Wstrict-overflow warnings
     RUBY_TRY_CFLAGS(-fno-strict-overflow, [RUBY_APPEND_OPTION(XCFLAGS, -fno-strict-overflow)])
-
-    test "${debugflags+set}" || {RUBY_TRY_CFLAGS(-ggdb3, [debugflags=-ggdb3])}
-    test "${debugflags+set}" || {RUBY_TRY_CFLAGS(-ggdb, [debugflags=-ggdb])}
-    test "${debugflags+set}" || {RUBY_TRY_CFLAGS(-g3, [debugflags=-g3])}
 ])
-test $ac_cv_prog_cc_g = yes && : ${debugflags=-g}
 AS_IF([test "x$RUBY_DEVEL" = xyes], [RUBY_APPEND_OPTION(XCFLAGS, -DRUBY_DEVEL=1)])
 
 AS_IF([test "$GCC" = ""], [
