@@ -601,20 +601,20 @@ AS_IF([test "x$RUBY_DEVEL" = xyes], [RUBY_APPEND_OPTION(XCFLAGS, -DRUBY_DEVEL=1)
 AS_IF([test "$GCC" = ""], [
     AS_CASE(["$target_os"],[aix*],[warnflags="$warnflags -qinfo=por" rb_cv_warnflags="$rb_cv_warnflags -qinfo=por"])
 ])
-AS_IF([test "$GCC" = yes], [
-    AS_IF([test "$gcc_major" -ge 4], [
-	RUBY_TRY_CFLAGS(-fvisibility=hidden, [visibility_option=yes], [visibility_option=no])
-    ])
-    AC_SUBST(WERRORFLAG, "-Werror")
-    AS_IF([test "$visibility_option" = yes], [
-	#RUBY_APPEND_OPTION(XCFLAGS, -fvisibility=hidden)
-	#AC_DEFINE(RUBY_SYMBOL_EXPORT_BEGIN, [_Pragma("GCC visibility push(default)")])
-	#AC_DEFINE(RUBY_SYMBOL_EXPORT_END,   [_Pragma("GCC visibility pop")])
-    ], [
-	#RUBY_TRY_LDFLAGS([-Wl,-unexported_symbol,_Init_*], [visibility_option=ld], [visibility_option=no])
-    ])
-    test "$visibility_option" = no || OBJCOPY=:
-])
+#AS_IF([test "$GCC" = yes], [
+#    AS_IF([test "$gcc_major" -ge 4], [
+#	RUBY_TRY_CFLAGS(-fvisibility=hidden, [visibility_option=yes], [visibility_option=no])
+#    ])
+#    AC_SUBST(WERRORFLAG, "-Werror")
+#    AS_IF([test "$visibility_option" = yes], [
+#	RUBY_APPEND_OPTION(XCFLAGS, -fvisibility=hidden)
+#	AC_DEFINE(RUBY_SYMBOL_EXPORT_BEGIN, [_Pragma("GCC visibility push(default)")])
+#	AC_DEFINE(RUBY_SYMBOL_EXPORT_END,   [_Pragma("GCC visibility pop")])
+#    ], [
+#	RUBY_TRY_LDFLAGS([-Wl,-unexported_symbol,_Init_*], [visibility_option=ld], [visibility_option=no])
+#    ])
+#    test "$visibility_option" = no || OBJCOPY=:
+#])
 
 AS_IF([test "$GCC" = yes], [
     # optflags
