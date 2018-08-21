@@ -503,7 +503,7 @@ AS_IF([test "$GCC" = yes], [
     # argument check. The performance drop is very little and Ubuntu enables
     # _FORTIFY_SOURCE=2 by default. So, let's support it for protecting us from
     # a mistake of silly C extensions.
-    RUBY_TRY_CFLAGS(-D_FORTIFY_SOURCE=2, [RUBY_APPEND_OPTION(XCFLAGS, -D_FORTIFY_SOURCE=2)])
+    RUBY_TRY_CFLAGS(-U_FORTIFY_SOURCE, [RUBY_APPEND_OPTION(XCFLAGS, -U_FORTIFY_SOURCE)])
 
     : ${MJIT_HEADER_FLAGS='-P -dD'}
 
@@ -607,11 +607,11 @@ AS_IF([test "$GCC" = yes], [
     ])
     AC_SUBST(WERRORFLAG, "-Werror")
     AS_IF([test "$visibility_option" = yes], [
-	RUBY_APPEND_OPTION(XCFLAGS, -fvisibility=hidden)
-	AC_DEFINE(RUBY_SYMBOL_EXPORT_BEGIN, [_Pragma("GCC visibility push(default)")])
-	AC_DEFINE(RUBY_SYMBOL_EXPORT_END,   [_Pragma("GCC visibility pop")])
+	#RUBY_APPEND_OPTION(XCFLAGS, -fvisibility=hidden)
+	#AC_DEFINE(RUBY_SYMBOL_EXPORT_BEGIN, [_Pragma("GCC visibility push(default)")])
+	#AC_DEFINE(RUBY_SYMBOL_EXPORT_END,   [_Pragma("GCC visibility pop")])
     ], [
-	RUBY_TRY_LDFLAGS([-Wl,-unexported_symbol,_Init_*], [visibility_option=ld], [visibility_option=no])
+	#RUBY_TRY_LDFLAGS([-Wl,-unexported_symbol,_Init_*], [visibility_option=ld], [visibility_option=no])
     ])
     test "$visibility_option" = no || OBJCOPY=:
 ])
@@ -676,7 +676,6 @@ AC_ARG_WITH(winnt-ver,
 AS_CASE(["$target_os"],
 [mingw*], [
   RUBY_APPEND_OPTION(CPPFLAGS, -D_WIN32_WINNT=$with_winnt_ver)
-  RUBY_APPEND_OPTION(CPPFLAGS, -D__MINGW_USE_VC2005_COMPAT)
 ])
 
 AS_CASE(["$target_os"],

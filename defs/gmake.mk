@@ -24,9 +24,9 @@ TEST_TARGETS := $(patsubst test-short,btest-ruby test-knownbug test-basic,$(TEST
 TEST_DEPENDS := $(filter-out test-short $(TEST_TARGETS),$(TEST_DEPENDS))
 TEST_DEPENDS += $(if $(filter great exam love check,$(MAKECMDGOALS)),all exts)
 
-ifneq ($(filter -O0 -Od,$(optflags)),)
-override XCFLAGS := $(filter-out -D_FORTIFY_SOURCE=%,$(XCFLAGS))
-endif
+#ifneq ($(filter -O0 -Od,$(optflags)),)
+#override XCFLAGS := $(filter-out -D_FORTIFY_SOURCE=%,$(XCFLAGS))
+#endif
 
 ifeq ($(if $(filter all main exts enc trans libencs libenc libtrans \
 		    prog program ruby ruby$(EXEEXT) \
